@@ -8,16 +8,16 @@
 #import "CXNotificationWindow.h"
 #import "CXNotificationView.h"
 
-#define GLNotificationHeight 125.0
-#define GL_RADIANS(x) ((x) * M_PI / 180.0)
+#define CXNotificationHeight 125.0
+#define CX_RADIANS(x) ((x) * M_PI / 180.0)
 
-static inline CGRect _GLNotificationRect(void){
+static inline CGRect _CXNotificationRect(void){
     CGFloat width = CGRectGetWidth([UIScreen mainScreen].bounds);
     if(UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])){
         width = CGRectGetHeight([UIScreen mainScreen].bounds);
     }
     
-    return CGRectMake(0, 0, width, GLNotificationHeight);
+    return CGRectMake(0, 0, width, CXNotificationHeight);
 }
 
 @interface CXNotificationWindow () {
@@ -33,7 +33,7 @@ static inline CGRect _GLNotificationRect(void){
     static CXNotificationWindow *_notificationWindow = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _notificationWindow = [[CXNotificationWindow alloc] initWithFrame:_GLNotificationRect()];
+        _notificationWindow = [[CXNotificationWindow alloc] initWithFrame:_CXNotificationRect()];
     });
     
     return _notificationWindow;
@@ -77,23 +77,23 @@ static inline CGRect _GLNotificationRect(void){
 }
 
 - (void)rotateNotificationWindow{
-    CGRect frame = _GLNotificationRect();
+    CGRect frame = _CXNotificationRect();
     BOOL portrait = (CGRectGetWidth(frame) == CGRectGetWidth([UIScreen mainScreen].bounds));
     
     if(portrait){
         if([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown){
-            frame.origin.y = CGRectGetHeight([UIScreen mainScreen].bounds) - GLNotificationHeight;
-            self.transform = CGAffineTransformMakeRotation(GL_RADIANS(180.0));
+            frame.origin.y = CGRectGetHeight([UIScreen mainScreen].bounds) - CXNotificationHeight;
+            self.transform = CGAffineTransformMakeRotation(CX_RADIANS(180.0));
         }else{
             self.transform = CGAffineTransformIdentity;
         }
     }else{
-        frame.size = CGSizeMake(GLNotificationHeight, frame.size.width);
+        frame.size = CGSizeMake(CXNotificationHeight, frame.size.width);
         if([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft){
             frame.origin.x = CGRectGetWidth([UIScreen mainScreen].bounds) - CGRectGetWidth(frame);
-            self.transform = CGAffineTransformMakeRotation(GL_RADIANS(90.0));
+            self.transform = CGAffineTransformMakeRotation(CX_RADIANS(90.0));
         }else{
-            self.transform = CGAffineTransformMakeRotation(GL_RADIANS(-90.0));
+            self.transform = CGAffineTransformMakeRotation(CX_RADIANS(-90.0));
         }
     }
     

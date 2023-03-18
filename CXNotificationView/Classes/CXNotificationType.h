@@ -1,12 +1,12 @@
 //
-//  GLNotificationType.h
+//  CXNotificationType.h
 //  Pods
 //
 //  Created by wshaolin on 2018/6/29.
 //
 
-#ifndef GLNotificationType_h
-#define GLNotificationType_h
+#ifndef CXNotificationType_h
+#define CXNotificationType_h
 
 #import <UIKit/UIKit.h>
 #import <CXFoundation/CXFoundation.h>
@@ -34,4 +34,4 @@ typedef void (^CXNotificationWillCloseBlock)(CXNotificationView *view);
 // notification已经关闭
 typedef void (^CXNotificationDidCloseBlock)(CXNotificationView *view);
 
-#endif /* GLNotificationType_h */
+#endif /* CXNotificationType_h */
